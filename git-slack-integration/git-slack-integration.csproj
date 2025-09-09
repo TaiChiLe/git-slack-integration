@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>git_slack_integration</RootNamespace>
+    <UserSecretsId>559c102d-00aa-4264-9088-5281d81949fb</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NgitLab" Version="10.2.0" />
+    <PackageReference Include="SlackNet" Version="0.17.4" />
+  </ItemGroup>
+
+</Project>

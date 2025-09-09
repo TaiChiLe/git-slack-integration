@@ -1,0 +1,6 @@
+@git_slack_integration_HostAddress = http://localhost:5125
+
+GET {{git_slack_integration_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
