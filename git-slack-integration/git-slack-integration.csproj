@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.3" />
     <PackageReference Include="NgitLab" Version="10.2.0" />
     <PackageReference Include="SlackNet" Version="0.17.4" />
     <PackageReference Include="SlackNet.AspNetCore" Version="0.17.1" />

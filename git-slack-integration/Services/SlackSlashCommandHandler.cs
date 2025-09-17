@@ -1,5 +1,6 @@
 ﻿using SlackNet.Interaction;
 using SlackNet.WebApi;
+using SlackNet.Blocks;
 using git_slack_integration.Services;
 using SlackNet;
 using NGitLab.Models;
@@ -60,6 +61,8 @@ class SlackSlashCommandHandler : ISlashCommandHandler
                 Issue issue = result.Issue;
                 string description = "";
                 string tags = "";
+                string createdDate = issue.CreatedAt.ToString();
+
 
                 if (issue.Description.Length > 0)
                 {
@@ -81,16 +84,46 @@ class SlackSlashCommandHandler : ISlashCommandHandler
                 {
                     description = description.Substring(0, 300) + "...";
                 }
+                var blocks = new Block[]
+                {
+                    new SectionBlock
+                    {
+                        Text = new Markdown 
+                        { 
+                            Text = $":pushpin: *{issue.Title}*\n" +
+                                   $"<{issue.WebUrl}| Link To Issue #{issueId}>\n" +
+                                   $"*State:* {issue.State}\n" +
+                                   $"*Created At:* {createdDate}\n" +
+                                   $"*Description:* {description}\n" +
+                                   $"*Tags:* {tags}" 
+                        }
+                    },
+                     new ActionsBlock
+                     {
+                        Elements = new IActionElement[]
+                        {
+                            new SlackNet.Blocks.Button
+                            {
+                                Text = new PlainText { Text = "Load Comments" },
+                                ActionId = "load_more_comments",
+                                Value = $"issue:{issueId},comment:0"
+                            }
+                        }
+                     }
+                };
 
                 await _slack.Chat.PostMessage(new Message
                 {
                     Channel = command.ChannelId,
+                    //Text here only used as backup
                     Text = $":pushpin: *{issue.Title}*\n" +
                     $"<{issue.WebUrl}| Link To Issue #{issueId}>\n" +
                     $"*State:* {issue.State}\n" +
+                    $"*Created At:* {createdDate}" +
                     $"*Description:* {description}\n" +
-                    $"*Tags:* {tags}"
-
+                    $"*Tags:* {tags}",
+                    Blocks = blocks,
+                
                 });
             }
             catch (Exception ex)

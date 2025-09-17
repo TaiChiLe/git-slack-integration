@@ -10,7 +10,7 @@ public class GitLabApiService
         _gitLabClient = new GitLabClient(gitlabUrl, gitlabToken);
     }
 
-    private Project? GetProjectByPath(string projectPath)
+    public Project? GetProjectByPath(string projectPath)
     {
         try
         {
